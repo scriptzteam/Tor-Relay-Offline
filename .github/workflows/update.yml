@@ -13,14 +13,10 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-
-      - name: Run Tor data fetcher and parser
-        run: |
-          bash tor.sh
-
+        
       - name: Generate lowest-downtime offline README report
         run: |
-          bash offline_readme.sh
+          bash offline.sh
 
       - name: Commit and push changes
         run: |
