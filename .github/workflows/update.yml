@@ -23,13 +23,13 @@ jobs:
           git config --local user.email "scriptzteam@gmail.com"
           git config --local user.name "scriptzteam"
           
-          # Stage all generated IP lists, compressed JSON archive, and the new README
-          git add -f onionoo_details.json.gz *.md
+          # Stage all generated IP lists, compressed JSON archive, README, and the cache file
+          git add -f onionoo_details.json.gz .last_modified *.md
           
           if ! git diff --cached --quiet; then
             echo "Changes detected, committing..."
-            git commit -m "Update Tor IP lists and lowest-downtime offline README report"
+            git commit -m "Update Tor IP lists, stats, and caching metadata"
             git push
           else
-            echo "No changes to commit"
+            echo "No changes to commit (Data not modified)"
           fi
