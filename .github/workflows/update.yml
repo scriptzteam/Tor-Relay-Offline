@@ -1,0 +1,39 @@
+name: Update Tor Relays Data
+
+on:
+  schedule:
+    - cron: '*/30 * * * *'  # Run every 30 minutes
+  workflow_dispatch:        # Allow manual trigger from GitHub Actions tab
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Run Tor data fetcher and parser
+        run: |
+          bash tor.sh
+
+      - name: Generate lowest-downtime offline README report
+        run: |
+          bash offline_readme.sh
+
+      - name: Commit and push changes
+        run: |
+          git config --local user.email "scriptzteam@gmail.com"
+          git config --local user.name "scriptzteam"
+          
+          # Stage all generated IP lists, compressed JSON archive, and the new README
+          git add -f *relays*.txt *exits*.txt onionoo_details.json.gz README.md
+          
+          if ! git diff --cached --quiet; then
+            echo "Changes detected, committing..."
+            git commit -m "Update Tor IP lists and lowest-downtime offline README report"
+            git push
+          else
+            echo "No changes to commit"
+          fi
