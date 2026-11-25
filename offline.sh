@@ -4,6 +4,7 @@ set -euo pipefail
 ONIONOO_URL="https://onionoo.torproject.org/details"
 GZ_FILE="onionoo_details.json.gz"
 OUTPUT_MD="README.md"
+NETWORK_MD="NETWORK.md"
 
 # Download fresh archive if it doesn't exist locally
 if [ ! -f "$GZ_FILE" ]; then
@@ -11,12 +12,12 @@ if [ ! -f "$GZ_FILE" ]; then
   curl -sL "$ONIONOO_URL" | gzip -9 > "$GZ_FILE"
 fi
 
-echo "[*] Parsing offline relays and calculating downtime..."
+echo "[*] Parsing offline relays and aggregating by ASN..."
 
 NOW_EPOCH=$(date -u +%s)
 TIMESTAMP=$(date -u +"%Y-%m-%d %H:%M:%S UTC")
 
-# Extract offline relays with last_seen timestamp, nickname, fingerprint, IPv4/IPv6 addresses, and flags
+# 1. Extract individual offline relays for README.md
 gzip -dc "$GZ_FILE" | jq -r '
   .relays[] | select(.running == false) |
   [
@@ -28,59 +29,83 @@ gzip -dc "$GZ_FILE" | jq -r '
   ] | @tsv
 ' > offline_raw.tmp
 
-# Calculate downtime in seconds for sorting, format human-readable duration, and sort ascending (lowest downtime first)
 awk -F'\t' -v now="$NOW_EPOCH" '
 {
-  last_seen = $1
-  nick = $2
-  fp = $3
-  ips = $4
-  role = $5
-
-  # Convert "YYYY-MM-DD HH:MM:SS" to epoch using GNU date
+  last_seen = $1; nick = $2; fp = $3; ips = $4; role = $5
   cmd = "date -u -d \"" last_seen "\" +%s 2>/dev/null"
   cmd | getline seen_epoch
   close(cmd)
 
   if (seen_epoch == "" || seen_epoch <= 0) {
-    diff = 999999999
-    downtime_str = "Unknown"
+    diff = 999999999; downtime_str = "Unknown"
   } else {
     diff = now - seen_epoch
     if (diff < 0) diff = 0
-
-    days = int(diff / 86400)
-    hours = int((diff % 86400) / 3600)
-    mins = int((diff % 3600) / 60)
-
-    if (days > 0) {
-      downtime_str = sprintf("%dd %dh %dm", days, hours, mins)
-    } else if (hours > 0) {
-      downtime_str = sprintf("%dh %dm", hours, mins)
-    } else {
-      downtime_str = sprintf("%dm", mins)
-    }
+    days = int(diff / 86400); hours = int((diff % 86400) / 3600); mins = int((diff % 3600) / 60)
+    if (days > 0) downtime_str = sprintf("%dd %dh %dm", days, hours, mins)
+    else if (hours > 0) downtime_str = sprintf("%dh %dm", hours, mins)
+    else downtime_str = sprintf("%dm", mins)
   }
-
-  # Print sortable epoch diff first, followed by Markdown table row
   printf "%012d\t| %s | `%s` | %s | `%s` | %s | `%s` |\n", diff, downtime_str, last_seen, role, nick, ips, fp
-}' offline_raw.tmp | sort -n | cut -f2- > offline_rows.tmp
+}' offline_raw.tmp | sort -n | cut -f2- > offline_readme_rows.tmp
 
-TOTAL_OFFLINE=$(wc -l < offline_rows.tmp | tr -d ' ')
+TOTAL_OFFLINE=$(wc -l < offline_readme_rows.tmp | tr -d ' ')
+
+# 2. Extract and Aggregate by ASN for network.md
+gzip -dc "$GZ_FILE" | jq -r '
+  .relays[] | select(.running == false) |
+  [
+    (.as // "AS0"),
+    (.as_name // "Unknown ASN" | gsub("\\|"; "-")),
+    (.country // "zz")
+  ] | @tsv
+' > asn_raw.tmp
+
+awk -F'\t' '
+function country_to_emoji(cc,    c1, c2) {
+    cc = toupper(cc)
+    if (length(cc) != 2) return "🌍"
+    c1 = substr(cc, 1, 1); c2 = substr(cc, 2, 1)
+    return sprintf("\U%08X\U%08X", 127462 + index("ABCDEFGHIJKLMNOPQRSTUVWXYZ", c1) - 1, 127462 + index("ABCDEFGHIJKLMNOPQRSTUVWXYZ", c2) - 1)
+}
+{
+    asn = $1
+    asname = $2
+    cc = $3
+    
+    # Key combination for uniqueness
+    key = asn "\t" asname "\t" cc
+    count[key]++
+}
+END {
+    for (key in count) {
+        split(key, fields, "\t")
+        asn = fields[1]
+        asname = fields[2]
+        cc = fields[3]
+        flag = country_to_emoji(cc)
+        
+        # Print count formatted with leading zeros for numerical sorting, then columns
+        printf "%06d\t| `%s` | %s | %s %s | **%d** |\n", count[key], asn, asname, flag, toupper(cc), count[key]
+    }
+}' asn_raw.tmp | sort -nr > asn_aggregated.tmp
+
+TOTAL_ASNS=$(wc -l < asn_aggregated.tmp | tr -d ' ')
+cut -f2- asn_aggregated.tmp > network_rows.tmp
 
 # Get raw archive size info
 GZ_SIZE_HR=$(du -h "$GZ_FILE" | awk '{print $1}')
 GZ_SIZE_BYTES=$(wc -c < "$GZ_FILE" | tr -d ' ')
 
-# Write the README.md report
+# 3. Write README.md
 cat << EOF > "$OUTPUT_MD"
 # Offline Tor Relays (Sorted by Lowest Downtime)
 
 List of currently offline Tor nodes (\`running: false\`) parsed from the official [Tor Onionoo API](https://onionoo.torproject.org/), sorted from most recently seen (lowest downtime) to oldest.
 
-* **Last Updated:** $TIMESTAMP
-* **Total Offline Nodes:** \`$TOTAL_OFFLINE\`
-* **Raw Archive Size:** $GZ_SIZE_HR (\`$GZ_SIZE_BYTES\` bytes)
+- **Last Updated:** $TIMESTAMP
+- **Total Offline Nodes:** \`$TOTAL_OFFLINE\`
+- **Raw Archive Size:** $GZ_SIZE_HR (\`$GZ_SIZE_BYTES\` bytes)
 
 ## 📊 Offline Nodes Table
 
@@ -88,9 +113,27 @@ List of currently offline Tor nodes (\`running: false\`) parsed from the officia
 | :--- | :--- | :--- | :--- | :--- | :--- |
 EOF
 
-cat offline_rows.tmp >> "$OUTPUT_MD"
+cat offline_readme_rows.tmp >> "$OUTPUT_MD"
+
+# 4. Write NETWORK.md
+cat << EOF > "$NETWORK_MD"
+# Offline Tor Relays by Autonomous System (ASN)
+
+Aggregated summary of currently offline Tor nodes (\`running: false\`) grouped by their Autonomous System Network, sorted by total offline relay count.
+
+- **Last Updated:** $TIMESTAMP
+- **Total Offline Nodes:** \`$TOTAL_OFFLINE\`
+- **Total Unique ASNs:** \`$TOTAL_ASNS\`
+
+## 🌐 ASN Distribution Table
+
+| ASN Number | ASN Name | Location / Flag | Total Offline Relays |
+| :--- | :--- | :--- | :--- |
+EOF
+
+cat network_rows.tmp >> "$NETWORK_MD"
 
 # Cleanup temp files
-rm -f offline_raw.tmp offline_rows.tmp
+rm -f offline_raw.tmp offline_readme_rows.tmp asn_raw.tmp asn_aggregated.tmp network_rows.tmp
 
-echo "[+] Success! Generated $OUTPUT_MD with $TOTAL_OFFLINE offline relays."
+echo "[+] Success! Generated $OUTPUT_MD and $NETWORK_MD with ASN totals."
