@@ -5,6 +5,7 @@ ONIONOO_URL="https://onionoo.torproject.org/details"
 GZ_FILE="onionoo_details.json.gz"
 OUTPUT_MD="README.md"
 NETWORK_MD="NETWORK.md"
+STATS_MD="STATS.md"
 
 if [ ! -f "$GZ_FILE" ]; then
   echo "[*] $GZ_FILE not found, downloading from Onionoo..."
@@ -51,7 +52,7 @@ awk -F'\t' -v now="$NOW_EPOCH" '
 
 TOTAL_OFFLINE=$(wc -l < offline_readme_rows.tmp | tr -d ' ')
 
-# 2. Extract and Aggregate by ASN for NETWORK.md
+# 2. Extract and Aggregate by ASN for NETWORK.md and STATS metrics
 gzip -dc "$GZ_FILE" | jq -r '
   .relays[] | select(.running == false) |
   (if (.flags | index("Exit") != null) then "Exit" else "Non-Exit" end) as $role |
@@ -67,8 +68,9 @@ awk -F'\t' '{
     asn = $1; asname = $2; cc = $3; role = $4
     key = asn "\t" asname "\t" cc
     total[key]++
-    if (role == "Exit") exits[key]++
-    else non_exits[key]++
+    if (role == "Exit") { exits[key]++; global_exits++ }
+    else { non_exits[key]++; global_non_exits++ }
+    global_total++
 }
 END {
     for (key in total) {
@@ -83,6 +85,12 @@ END {
 
 TOTAL_ASNS=$(wc -l < asn_aggregated.tmp | tr -d ' ')
 cut -f2- asn_aggregated.tmp > network_rows.tmp
+
+# Count total exits and non-exits globally across all ASNs
+GLOBAL_EXITS=$(awk -F'\t' '{sum+=$5} END {print sum+0}' asn_aggregated.tmp) # Just parsing values if needed or calculating directly
+# Let's cleanly calculate global exits/non-exits via an auxiliary pass or variable
+GLOBAL_EXITS=$(gzip -dc "$GZ_FILE" | jq '[.relays[] | select(.running == false) | select(.flags | index("Exit") != null)] | length')
+GLOBAL_NON_EXITS=$((TOTAL_OFFLINE - GLOBAL_EXITS))
 
 GZ_SIZE_HR=$(du -h "$GZ_FILE" | awk '{print $1}')
 GZ_SIZE_BYTES=$(wc -c < "$GZ_FILE" | tr -d ' ')
@@ -123,6 +131,27 @@ EOF
 
 cat network_rows.tmp >> "$NETWORK_MD"
 
+# 5. Maintain / Prepend entry to STATS.md
+NEW_STAT_ROW="| $TIMESTAMP | **$TOTAL_OFFLINE** | \`$TOTAL_ASNS\` | $GLOBAL_EXITS exits + $GLOBAL_NON_EXITS non-exits |"
+
+if [ ! -f "$STATS_MD" ]; then
+  cat << EOF > "$STATS_MD"
+# Historical Offline Tor Relay Statistics
+
+Log of historical snapshot metrics recorded during every automated update cycle.
+
+| Timestamp (UTC) | Total Offline Nodes | Unique ASNs | Breakdown (Exits / Non-Exits) |
+| :--- | :--- | :--- | :--- |
+$NEW_STAT_ROW
+EOF
+else
+  # Insert the new row right below the header line (line 4) in STATS.md
+  awk -v new_row="$NEW_STAT_ROW" '
+    NR==4 {print new_row}
+    {print}
+  ' "$STATS_MD" > stats_tmp.md && mv stats_tmp.md "$STATS_MD"
+fi
+
 rm -f offline_raw.tmp offline_readme_rows.tmp asn_raw.tmp asn_aggregated.tmp network_rows.tmp
 
-echo "[+] Success! Generated $OUTPUT_MD and $NETWORK_MD successfully."
+echo "[+] Success! Generated $OUTPUT_MD, $NETWORK_MD, and prepended latest metrics to $STATS_MD."
