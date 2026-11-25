@@ -50,26 +50,33 @@ awk -F'\t' -v now="$NOW_EPOCH" '
 
 TOTAL_OFFLINE=$(wc -l < offline_readme_rows.tmp | tr -d ' ')
 
-# 2. Extract and Aggregate by ASN using plain country codes
+# 2. Extract and Aggregate by ASN with Exit/Non-Exit breakdown
 gzip -dc "$GZ_FILE" | jq -r '
   .relays[] | select(.running == false) |
+  (if (.flags | index("Exit") != null) then "Exit" else "Non-Exit" end) as $role |
   [
     (.as // "AS0"),
     (.as_name // "Unknown ASN" | gsub("\\|"; "-")),
-    ((.country // "zz") | ascii_upcase)
+    ((.country // "zz") | ascii_upcase),
+    $role
   ] | @tsv
 ' > asn_raw.tmp
 
 awk -F'\t' '{
-    asn = $1; asname = $2; cc = $3
+    asn = $1; asname = $2; cc = $3; role = $4
     key = asn "\t" asname "\t" cc
-    count[key]++
+    total[key]++
+    if (role == "Exit") exits[key]++
+    else non_exits[key]++
 }
 END {
-    for (key in count) {
+    for (key in total) {
         split(key, fields, "\t")
         asn = fields[1]; asname = fields[2]; cc = fields[3]
-        printf "%06d\t| `%s` | %s | `%s` | **%d** |\n", count[key], asn, asname, cc, count[key]
+        t = total[key]
+        e = exits[key] + 0
+        n = non_exits[key] + 0
+        printf "%06d\t| `%s` | %s | `%s` | **%d** (%d exits + %d non) |\n", t, asn, asname, cc, t, e, n
     }
 }' asn_raw.tmp | sort -nr > asn_aggregated.tmp
 
@@ -117,4 +124,4 @@ cat network_rows.tmp >> "$NETWORK_MD"
 
 rm -f offline_raw.tmp offline_readme_rows.tmp asn_raw.tmp asn_aggregated.tmp network_rows.tmp
 
-echo "[+] Success! Generated $OUTPUT_MD and $NETWORK_MD successfully."
+echo "[+] Success! Generated $OUTPUT_MD and $NETWORK_MD with exit/non-exit breakdowns."
