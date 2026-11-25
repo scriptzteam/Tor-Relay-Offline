@@ -7,10 +7,8 @@ OUTPUT_MD="README.md"
 NETWORK_MD="NETWORK.md"
 STATS_MD="STATS.md"
 
-if [ ! -f "$GZ_FILE" ]; then
   echo "[*] $GZ_FILE not found, downloading from Onionoo..."
   curl -sL "$ONIONOO_URL" | gzip -9 > "$GZ_FILE"
-fi
 
 echo "[*] Parsing offline relays and aggregating by ASN..."
 
