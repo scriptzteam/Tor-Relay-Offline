@@ -4,7 +4,7 @@ set -euo pipefail
 ONIONOO_URL="https://onionoo.torproject.org/details"
 GZ_FILE="onionoo_details.json.gz"
 OUTPUT_MD="README.md"
-NETWORK_MD="NETWORK.md"
+NETWORK_MD="network.md"
 
 if [ ! -f "$GZ_FILE" ]; then
   echo "[*] $GZ_FILE not found, downloading from Onionoo..."
@@ -50,15 +50,16 @@ awk -F'\t' -v now="$NOW_EPOCH" '
 
 TOTAL_OFFLINE=$(wc -l < offline_readme_rows.tmp | tr -d ' ')
 
-# 2. Extract and Aggregate by ASN using fixed jq country-to-flag logic
+# 2. Extract and Aggregate by ASN using fixed explode indexing in jq
 gzip -dc "$GZ_FILE" | jq -r '
   .relays[] | select(.running == false) |
   (.country // "zz") as $country |
   (
     if ($country | length) != 2 then "🌍"
     else
-      (($country[0] | ascii_upcase | explode | .[0]) - 65 + 127462) as $cp1 |
-      (($country[1] | ascii_upcase | explode | .[0]) - 65 + 127462) as $cp2 |
+      ($country | ascii_upcase | explode) as $codes |
+      (($codes[0] - 65 + 127462)) as $cp1 |
+      (($codes[1] - 65 + 127462)) as $cp2 |
       ([$cp1, $cp2] | implode)
     end
   ) as $flag |
@@ -127,4 +128,4 @@ cat network_rows.tmp >> "$NETWORK_MD"
 
 rm -f offline_raw.tmp offline_readme_rows.tmp asn_raw.tmp asn_aggregated.tmp network_rows.tmp
 
-echo "[+] Success! Generated $OUTPUT_MD and $NETWORK_MD with correct flag emojis."
+echo "[+] Success! Generated $OUTPUT_MD and $NETWORK_MD successfully."
