@@ -4,7 +4,7 @@ set -euo pipefail
 ONIONOO_URL="https://onionoo.torproject.org/details"
 GZ_FILE="onionoo_details.json.gz"
 OUTPUT_MD="README.md"
-NETWORK_MD="network.md"
+NETWORK_MD="NETWORK.md"
 
 if [ ! -f "$GZ_FILE" ]; then
   echo "[*] $GZ_FILE not found, downloading from Onionoo..."
@@ -50,37 +50,26 @@ awk -F'\t' -v now="$NOW_EPOCH" '
 
 TOTAL_OFFLINE=$(wc -l < offline_readme_rows.tmp | tr -d ' ')
 
-# 2. Extract and Aggregate by ASN using fixed explode indexing in jq
+# 2. Extract and Aggregate by ASN using plain country codes
 gzip -dc "$GZ_FILE" | jq -r '
   .relays[] | select(.running == false) |
-  (.country // "zz") as $country |
-  (
-    if ($country | length) != 2 then "🌍"
-    else
-      ($country | ascii_upcase | explode) as $codes |
-      (($codes[0] - 65 + 127462)) as $cp1 |
-      (($codes[1] - 65 + 127462)) as $cp2 |
-      ([$cp1, $cp2] | implode)
-    end
-  ) as $flag |
   [
     (.as // "AS0"),
     (.as_name // "Unknown ASN" | gsub("\\|"; "-")),
-    $flag,
-    ($country | ascii_upcase)
+    ((.country // "zz") | ascii_upcase)
   ] | @tsv
 ' > asn_raw.tmp
 
 awk -F'\t' '{
-    asn = $1; asname = $2; flag = $3; cc = $4
-    key = asn "\t" asname "\t" flag "\t" cc
+    asn = $1; asname = $2; cc = $3
+    key = asn "\t" asname "\t" cc
     count[key]++
 }
 END {
     for (key in count) {
         split(key, fields, "\t")
-        asn = fields[1]; asname = fields[2]; flag = fields[3]; cc = fields[4]
-        printf "%06d\t| `%s` | %s | %s %s | `%s` | **%d** |\n", count[key], asn, asname, flag, cc, cc, count[key]
+        asn = fields[1]; asname = fields[2]; cc = fields[3]
+        printf "%06d\t| `%s` | %s | `%s` | **%d** |\n", count[key], asn, asname, cc, count[key]
     }
 }' asn_raw.tmp | sort -nr > asn_aggregated.tmp
 
@@ -108,7 +97,7 @@ EOF
 
 cat offline_readme_rows.tmp >> "$OUTPUT_MD"
 
-# 4. Write network.md
+# 4. Write NETWORK.md
 cat << EOF > "$NETWORK_MD"
 # Offline Tor Relays by Autonomous System (ASN)
 
@@ -120,8 +109,8 @@ Aggregated summary of currently offline Tor nodes (\`running: false\`) grouped b
 
 ## 🌐 ASN Distribution Table
 
-| ASN Number | ASN Name | Flag | Country | Total Offline Relays |
-| :--- | :--- | :--- | :--- | :--- |
+| ASN Number | ASN Name | Country | Total Offline Relays |
+| :--- | :--- | :--- | :--- |
 EOF
 
 cat network_rows.tmp >> "$NETWORK_MD"
