@@ -6,9 +6,41 @@ GZ_FILE="onionoo_details.json.gz"
 OUTPUT_MD="README.md"
 NETWORK_MD="NETWORK.md"
 STATS_MD="STATS.md"
+CACHE_FILE=".last_modified"
+HEADERS_FILE="headers.tmp"
+TEMP_GZ="onionoo_details.tmp.gz"
 
-  echo "[*] $GZ_FILE not found, downloading from Onionoo..."
-  curl -sL "$ONIONOO_URL" | gzip -9 > "$GZ_FILE"
+# Prepare curl arguments (requesting gzip compression from server)
+CURL_ARGS=("-sL" "-D" "$HEADERS_FILE" "-w" "%{http_code}" "-H" "Accept-Encoding: gzip" "-o" "$TEMP_GZ")
+
+# If both the gz file and timestamp cache exist, add the If-Modified-Since header
+if [ -f "$GZ_FILE" ] && [ -f "$CACHE_FILE" ]; then
+  LAST_MODIFIED_VAL=$(cat "$CACHE_FILE")
+  echo "[*] Checking Onionoo for updates (If-Modified-Since: $LAST_MODIFIED_VAL)..."
+  CURL_ARGS+=("-H" "If-Modified-Since: $LAST_MODIFIED_VAL")
+else
+  echo "[*] No local cache found. Downloading fresh Onionoo details..."
+fi
+
+# Execute curl and capture the HTTP status code
+HTTP_CODE=$(curl "${CURL_ARGS[@]}" "$ONIONOO_URL")
+
+if [ "$HTTP_CODE" -eq 304 ]; then
+  echo "[*] Onionoo data is not modified (304 Not Modified). Stopping execution."
+  rm -f "$TEMP_GZ" "$HEADERS_FILE"
+  exit 0
+elif [ "$HTTP_CODE" -eq 200 ]; then
+  echo "[*] New data available (200 OK). Saving and updating cache..."
+  mv "$TEMP_GZ" "$GZ_FILE"
+  
+  # Extract and save the new Last-Modified header value
+  grep -i "^Last-Modified:" "$HEADERS_FILE" | cut -d' ' -f2- | tr -d '\r' > "$CACHE_FILE"
+  rm -f "$HEADERS_FILE"
+else
+  echo "[!] Unexpected HTTP status code: $HTTP_CODE"
+  rm -f "$TEMP_GZ" "$HEADERS_FILE"
+  exit 1
+fi
 
 echo "[*] Parsing offline relays and aggregating by ASN..."
 
@@ -85,8 +117,6 @@ TOTAL_ASNS=$(wc -l < asn_aggregated.tmp | tr -d ' ')
 cut -f2- asn_aggregated.tmp > network_rows.tmp
 
 # Count total exits and non-exits globally across all ASNs
-GLOBAL_EXITS=$(awk -F'\t' '{sum+=$5} END {print sum+0}' asn_aggregated.tmp) # Just parsing values if needed or calculating directly
-# Let's cleanly calculate global exits/non-exits via an auxiliary pass or variable
 GLOBAL_EXITS=$(gzip -dc "$GZ_FILE" | jq '[.relays[] | select(.running == false) | select(.flags | index("Exit") != null)] | length')
 GLOBAL_NON_EXITS=$((TOTAL_OFFLINE - GLOBAL_EXITS))
 
