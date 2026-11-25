@@ -8,10 +8,10 @@ NETWORK_MD="NETWORK.md"
 STATS_MD="STATS.md"
 CACHE_FILE=".last_modified"
 HEADERS_FILE="headers.tmp"
-TEMP_GZ="onionoo_details.tmp.gz"
+TEMP_RAW="onionoo_details.tmp"
 
-# Prepare curl arguments (requesting gzip compression from server)
-CURL_ARGS=("-sL" "-D" "$HEADERS_FILE" "-w" "%{http_code}" "-H" "Accept-Encoding: gzip" "-o" "$TEMP_GZ")
+# Prepare curl arguments (requesting gzip from server)
+CURL_ARGS=("-sL" "-D" "$HEADERS_FILE" "-w" "%{http_code}" "-H" "Accept-Encoding: gzip" "-o" "$TEMP_RAW")
 
 # If both the gz file and timestamp cache exist, add the If-Modified-Since header
 if [ -f "$GZ_FILE" ] && [ -f "$CACHE_FILE" ]; then
@@ -27,18 +27,20 @@ HTTP_CODE=$(curl "${CURL_ARGS[@]}" "$ONIONOO_URL")
 
 if [ "$HTTP_CODE" -eq 304 ]; then
   echo "[*] Onionoo data is not modified (304 Not Modified). Stopping execution."
-  rm -f "$TEMP_GZ" "$HEADERS_FILE"
+  rm -f "$TEMP_RAW" "$HEADERS_FILE"
   exit 0
 elif [ "$HTTP_CODE" -eq 200 ]; then
-  echo "[*] New data available (200 OK). Saving and updating cache..."
-  mv "$TEMP_GZ" "$GZ_FILE"
+  echo "[*] New data available (200 OK). Compressing and updating cache..."
+  
+  # Ensure it is properly gzipped before saving as our target .gz file
+  gzip -9 < "$TEMP_RAW" > "$GZ_FILE"
   
   # Extract and save the new Last-Modified header value
   grep -i "^Last-Modified:" "$HEADERS_FILE" | cut -d' ' -f2- | tr -d '\r' > "$CACHE_FILE"
-  rm -f "$HEADERS_FILE"
+  rm -f "$TEMP_RAW" "$HEADERS_FILE"
 else
   echo "[!] Unexpected HTTP status code: $HTTP_CODE"
-  rm -f "$TEMP_GZ" "$HEADERS_FILE"
+  rm -f "$TEMP_RAW" "$HEADERS_FILE"
   exit 1
 fi
 
