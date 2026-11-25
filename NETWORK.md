@@ -2,7 +2,7 @@
 
 Aggregated summary of currently offline Tor nodes (`running: false`) grouped by their Autonomous System Network, sorted by total offline relay count.
 
-- **Last Updated:** 2026-11-25 11:25:52 UTC
+- **Last Updated:** 2026-11-25 13:01:21 UTC
 - **Total Offline Nodes:** `822`
 - **Total Unique ASNs:** `332`
 
