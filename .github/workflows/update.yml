@@ -24,7 +24,7 @@ jobs:
           git config --local user.name "scriptzteam"
           
           # Stage all generated IP lists, compressed JSON archive, and the new README
-          git add -f onionoo_details.json.gz README.md
+          git add -f onionoo_details.json.gz *.md
           
           if ! git diff --cached --quiet; then
             echo "Changes detected, committing..."
