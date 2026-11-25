@@ -145,9 +145,13 @@ Log of historical snapshot metrics recorded during every automated update cycle.
 $NEW_STAT_ROW
 EOF
 else
-  # Insert the new row right below the header line (line 4) in STATS.md
+  # Insert the new row right below the markdown table separator line
   awk -v new_row="$NEW_STAT_ROW" '
-    NR==4 {print new_row}
+    /\| :---/ {
+      print
+      print new_row
+      next
+    }
     {print}
   ' "$STATS_MD" > stats_tmp.md && mv stats_tmp.md "$STATS_MD"
 fi
