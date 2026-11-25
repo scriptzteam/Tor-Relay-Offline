@@ -6,7 +6,6 @@ GZ_FILE="onionoo_details.json.gz"
 OUTPUT_MD="README.md"
 NETWORK_MD="NETWORK.md"
 
-# Download fresh archive if it doesn't exist locally
 if [ ! -f "$GZ_FILE" ]; then
   echo "[*] $GZ_FILE not found, downloading from Onionoo..."
   curl -sL "$ONIONOO_URL" | gzip -9 > "$GZ_FILE"
@@ -51,49 +50,42 @@ awk -F'\t' -v now="$NOW_EPOCH" '
 
 TOTAL_OFFLINE=$(wc -l < offline_readme_rows.tmp | tr -d ' ')
 
-# 2. Extract and Aggregate by ASN for network.md
+# 2. Extract and Aggregate by ASN using jq to safely compute flag emojis
 gzip -dc "$GZ_FILE" | jq -r '
+  def cc_to_flag(cc):
+    . as $c |
+    if ($c | length) != 2 then "🌍"
+    else
+      (($c[0] | ascii_upcase | explode | .[0]) - 65 + 127462) as $cp1 |
+      (($c[1] | ascii_upcase | explode | .[0]) - 65 + 127462) as $cp2 |
+      ([$cp1, $cp2] | implode)
+    end;
+
   .relays[] | select(.running == false) |
   [
     (.as // "AS0"),
     (.as_name // "Unknown ASN" | gsub("\\|"; "-")),
-    (.country // "zz")
+    cc_to_flag(.country // "zz"),
+    ((.country // "zz") | ascii_upcase)
   ] | @tsv
 ' > asn_raw.tmp
 
-awk -F'\t' '
-function country_to_emoji(cc,    c1, c2) {
-    cc = toupper(cc)
-    if (length(cc) != 2) return "🌍"
-    c1 = substr(cc, 1, 1); c2 = substr(cc, 2, 1)
-    return sprintf("\U%08X\U%08X", 127462 + index("ABCDEFGHIJKLMNOPQRSTUVWXYZ", c1) - 1, 127462 + index("ABCDEFGHIJKLMNOPQRSTUVWXYZ", c2) - 1)
-}
-{
-    asn = $1
-    asname = $2
-    cc = $3
-    
-    # Key combination for uniqueness
-    key = asn "\t" asname "\t" cc
+awk -F'\t' '{
+    asn = $1; asname = $2; flag = $3; cc = $4
+    key = asn "\t" asname "\t" flag "\t" cc
     count[key]++
 }
 END {
     for (key in count) {
         split(key, fields, "\t")
-        asn = fields[1]
-        asname = fields[2]
-        cc = fields[3]
-        flag = country_to_emoji(cc)
-        
-        # Print count formatted with leading zeros for numerical sorting, then columns
-        printf "%06d\t| `%s` | %s | %s %s | **%d** |\n", count[key], asn, asname, flag, toupper(cc), count[key]
+        asn = fields[1]; asname = fields[2]; flag = fields[3]; cc = fields[4]
+        printf "%06d\t| `%s` | %s | %s %s | **%d** |\n", count[key], asn, asname, flag, cc, count[key]
     }
 }' asn_raw.tmp | sort -nr > asn_aggregated.tmp
 
 TOTAL_ASNS=$(wc -l < asn_aggregated.tmp | tr -d ' ')
 cut -f2- asn_aggregated.tmp > network_rows.tmp
 
-# Get raw archive size info
 GZ_SIZE_HR=$(du -h "$GZ_FILE" | awk '{print $1}')
 GZ_SIZE_BYTES=$(wc -c < "$GZ_FILE" | tr -d ' ')
 
@@ -115,7 +107,7 @@ EOF
 
 cat offline_readme_rows.tmp >> "$OUTPUT_MD"
 
-# 4. Write NETWORK.md
+# 4. Write network.md
 cat << EOF > "$NETWORK_MD"
 # Offline Tor Relays by Autonomous System (ASN)
 
@@ -133,7 +125,6 @@ EOF
 
 cat network_rows.tmp >> "$NETWORK_MD"
 
-# Cleanup temp files
 rm -f offline_raw.tmp offline_readme_rows.tmp asn_raw.tmp asn_aggregated.tmp network_rows.tmp
 
-echo "[+] Success! Generated $OUTPUT_MD and $NETWORK_MD with ASN totals."
+echo "[+] Success! Generated $OUTPUT_MD and $NETWORK_MD cleanly without warnings."
