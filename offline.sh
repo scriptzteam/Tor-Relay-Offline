@@ -41,7 +41,7 @@ awk -F'\t' -v now="$NOW_EPOCH" '
     diff = now - seen_epoch
     if (diff < 0) diff = 0
     days = int(diff / 86400); hours = int((diff % 86400) / 3600); mins = int((diff % 3600) / 60)
-    if (days > 0) downtime_str = sprintf("%dd %dh %dm", days, hours, mins)
+    if (days >0) downtime_str = sprintf("%dd %dh %dm", days, hours, mins)
     else if (hours > 0) downtime_str = sprintf("%dh %dm", hours, mins)
     else downtime_str = sprintf("%dm", mins)
   }
@@ -50,7 +50,7 @@ awk -F'\t' -v now="$NOW_EPOCH" '
 
 TOTAL_OFFLINE=$(wc -l < offline_readme_rows.tmp | tr -d ' ')
 
-# 2. Extract and Aggregate by ASN using jq to safely compute flag emojis
+# 2. Extract and Aggregate by ASN using jq with proper per-relay country mapping
 gzip -dc "$GZ_FILE" | jq -r '
   def cc_to_flag(cc):
     . as $c |
@@ -127,4 +127,4 @@ cat network_rows.tmp >> "$NETWORK_MD"
 
 rm -f offline_raw.tmp offline_readme_rows.tmp asn_raw.tmp asn_aggregated.tmp network_rows.tmp
 
-echo "[+] Success! Generated $OUTPUT_MD and $NETWORK_MD cleanly without warnings."
+echo "[+] Success! Generated $OUTPUT_MD and $NETWORK_MD with correct localized flags."
