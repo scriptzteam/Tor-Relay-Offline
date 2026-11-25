@@ -41,7 +41,7 @@ awk -F'\t' -v now="$NOW_EPOCH" '
     diff = now - seen_epoch
     if (diff < 0) diff = 0
     days = int(diff / 86400); hours = int((diff % 86400) / 3600); mins = int((diff % 3600) / 60)
-    if (days >0) downtime_str = sprintf("%dd %dh %dm", days, hours, mins)
+    if (days > 0) downtime_str = sprintf("%dd %dh %dm", days, hours, mins)
     else if (hours > 0) downtime_str = sprintf("%dh %dm", hours, mins)
     else downtime_str = sprintf("%dm", mins)
   }
@@ -50,23 +50,23 @@ awk -F'\t' -v now="$NOW_EPOCH" '
 
 TOTAL_OFFLINE=$(wc -l < offline_readme_rows.tmp | tr -d ' ')
 
-# 2. Extract and Aggregate by ASN using jq with proper per-relay country mapping
+# 2. Extract and Aggregate by ASN using fixed jq country-to-flag logic
 gzip -dc "$GZ_FILE" | jq -r '
-  def cc_to_flag(cc):
-    . as $c |
-    if ($c | length) != 2 then "🌍"
-    else
-      (($c[0] | ascii_upcase | explode | .[0]) - 65 + 127462) as $cp1 |
-      (($c[1] | ascii_upcase | explode | .[0]) - 65 + 127462) as $cp2 |
-      ([$cp1, $cp2] | implode)
-    end;
-
   .relays[] | select(.running == false) |
+  (.country // "zz") as $country |
+  (
+    if ($country | length) != 2 then "🌍"
+    else
+      (($country[0] | ascii_upcase | explode | .[0]) - 65 + 127462) as $cp1 |
+      (($country[1] | ascii_upcase | explode | .[0]) - 65 + 127462) as $cp2 |
+      ([$cp1, $cp2] | implode)
+    end
+  ) as $flag |
   [
     (.as // "AS0"),
     (.as_name // "Unknown ASN" | gsub("\\|"; "-")),
-    cc_to_flag(.country // "zz"),
-    ((.country // "zz") | ascii_upcase)
+    $flag,
+    ($country | ascii_upcase)
   ] | @tsv
 ' > asn_raw.tmp
 
@@ -79,7 +79,7 @@ END {
     for (key in count) {
         split(key, fields, "\t")
         asn = fields[1]; asname = fields[2]; flag = fields[3]; cc = fields[4]
-        printf "%06d\t| `%s` | %s | %s %s | **%d** |\n", count[key], asn, asname, flag, cc, count[key]
+        printf "%06d\t| `%s` | %s | %s %s | `%s` | **%d** |\n", count[key], asn, asname, flag, cc, cc, count[key]
     }
 }' asn_raw.tmp | sort -nr > asn_aggregated.tmp
 
@@ -119,12 +119,12 @@ Aggregated summary of currently offline Tor nodes (\`running: false\`) grouped b
 
 ## 🌐 ASN Distribution Table
 
-| ASN Number | ASN Name | Location / Flag | Total Offline Relays |
-| :--- | :--- | :--- | :--- |
+| ASN Number | ASN Name | Flag | Country | Total Offline Relays |
+| :--- | :--- | :--- | :--- | :--- |
 EOF
 
 cat network_rows.tmp >> "$NETWORK_MD"
 
 rm -f offline_raw.tmp offline_readme_rows.tmp asn_raw.tmp asn_aggregated.tmp network_rows.tmp
 
-echo "[+] Success! Generated $OUTPUT_MD and $NETWORK_MD with correct localized flags."
+echo "[+] Success! Generated $OUTPUT_MD and $NETWORK_MD with correct flag emojis."
