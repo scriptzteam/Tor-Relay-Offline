@@ -49,7 +49,7 @@ echo "[*] Parsing offline relays and aggregating by ASN..."
 NOW_EPOCH=$(date -u +%s)
 TIMESTAMP=$(date -u +"%Y-%m-%d %H:%M:%S UTC")
 
-# 1. Extract individual offline relays with AS number and ASN name for README.md
+# 1. Extract individual offline relays with separate ASN number and ASN name for README.md
 gzip -dc "$GZ_FILE" | jq -r '
   .relays[] | select(.running == false) |
   [
@@ -81,8 +81,7 @@ awk -F'\t' -v now="$NOW_EPOCH" '
     else downtime_str = sprintf("%dm", mins)
   }
   
-  asn_formatted = sprintf("`%s` (%s)", asn, asname)
-  printf "%012d\t| %s | `%s` | %s | `%s` | %s | `%s` |\n", diff, downtime_str, last_seen, role, nick, asn_formatted, ips, fp
+  printf "%012d\t| %s | `%s` | %s | `%s` | `%s` | %s | `%s` |\n", diff, downtime_str, last_seen, role, nick, asn, asname, ips, fp
 }' offline_raw.tmp | sort -n | cut -f2- > offline_readme_rows.tmp
 
 TOTAL_OFFLINE=$(wc -l < offline_readme_rows.tmp | tr -d ' ')
@@ -140,8 +139,8 @@ List of currently offline Tor nodes (\`running: false\`) parsed from the officia
 
 ## 📊 Offline Nodes Table
 
-| Downtime | Last Seen (UTC) | Role | Nickname | ASN & Name | IP Address(es) | Fingerprint |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| Downtime | Last Seen (UTC) | Role | Nickname | ASN Number | ASN Name | IP Address(es) | Fingerprint |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
 EOF
 
 cat offline_readme_rows.tmp >> "$OUTPUT_MD"
