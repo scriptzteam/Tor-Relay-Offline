@@ -81,7 +81,7 @@ awk -F'\t' -v now="$NOW_EPOCH" '
     else downtime_str = sprintf("%dm", mins)
   }
   
-  printf "%012d\t| %s | `%s` | %s | `%s` | `%s` | %s | `%s` |\n", diff, downtime_str, last_seen, role, nick, asn, asname, ips, fp
+  printf "%012d\t| %s | `%s` | %s | `%s` | `%s` | %s | %s | `%s` |\n", diff, downtime_str, last_seen, role, nick, asn, asname, ips, fp
 }' offline_raw.tmp | sort -n | cut -f2- > offline_readme_rows.tmp
 
 TOTAL_OFFLINE=$(wc -l < offline_readme_rows.tmp | tr -d ' ')
