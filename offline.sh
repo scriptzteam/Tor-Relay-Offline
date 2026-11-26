@@ -49,7 +49,7 @@ echo "[*] Parsing offline relays and aggregating by ASN..."
 NOW_EPOCH=$(date -u +%s)
 TIMESTAMP=$(date -u +"%Y-%m-%d %H:%M:%S UTC")
 
-# 1. Extract individual offline relays with just AS number for README.md
+# 1. Extract individual offline relays with AS number and ASN name for README.md
 gzip -dc "$GZ_FILE" | jq -r '
   .relays[] | select(.running == false) |
   [
@@ -58,13 +58,14 @@ gzip -dc "$GZ_FILE" | jq -r '
     (.fingerprint // "N/A"),
     ((.or_addresses // []) | map(sub("^\\["; "") | sub("]:[0-9]+$"; "") | sub(":[0-9]+$"; "")) | unique | join(", ")),
     (if (.flags | index("Exit") != null) then "Exit" else "Relay" end),
-    (.as // "AS0")
+    (.as // "AS0"),
+    (.as_name // "Unknown ASN" | gsub("\\|"; "-"))
   ] | @tsv
 ' > offline_raw.tmp
 
 awk -F'\t' -v now="$NOW_EPOCH" '
 {
-  last_seen = $1; nick = $2; fp = $3; ips = $4; role = $5; asn = $6
+  last_seen = $1; nick = $2; fp = $3; ips = $4; role = $5; asn = $6; asname = $7
   cmd = "date -u -d \"" last_seen "\" +%s 2>/dev/null"
   cmd | getline seen_epoch
   close(cmd)
@@ -79,7 +80,9 @@ awk -F'\t' -v now="$NOW_EPOCH" '
     else if (hours > 0) downtime_str = sprintf("%dh %dm", hours, mins)
     else downtime_str = sprintf("%dm", mins)
   }
-  printf "%012d\t| %s | `%s` | %s | `%s` | `%s` | %s | `%s` |\n", diff, downtime_str, last_seen, role, nick, asn, ips, fp
+  
+  asn_formatted = sprintf("`%s` (%s)", asn, asname)
+  printf "%012d\t| %s | `%s` | %s | `%s` | %s | `%s` |\n", diff, downtime_str, last_seen, role, nick, asn_formatted, ips, fp
 }' offline_raw.tmp | sort -n | cut -f2- > offline_readme_rows.tmp
 
 TOTAL_OFFLINE=$(wc -l < offline_readme_rows.tmp | tr -d ' ')
@@ -137,7 +140,7 @@ List of currently offline Tor nodes (\`running: false\`) parsed from the officia
 
 ## 📊 Offline Nodes Table
 
-| Downtime | Last Seen (UTC) | Role | Nickname | ASN | IP Address(es) | Fingerprint |
+| Downtime | Last Seen (UTC) | Role | Nickname | ASN & Name | IP Address(es) | Fingerprint |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
 EOF
 
