@@ -4,6 +4,7 @@ Log of historical snapshot metrics recorded during every automated update cycle.
 
 | Timestamp (UTC) | Total Offline Nodes | Unique ASNs | Breakdown (Exits / Non-Exits) |
 | :--- | :--- | :--- | :--- |
+| 2026-11-26 12:36:15 UTC | **908** | `354` | 210 exits + 698 non-exits |
 | 2026-11-26 12:33:55 UTC | **908** | `354` | 210 exits + 698 non-exits |
 | 2026-11-26 12:31:24 UTC | **908** | `354` | 210 exits + 698 non-exits |
 | 2026-11-26 12:19:49 UTC | **908** | `354` | 210 exits + 698 non-exits |
