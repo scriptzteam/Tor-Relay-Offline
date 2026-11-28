@@ -2,101 +2,99 @@
 
 Aggregated summary of currently offline Tor nodes (`running: false`) grouped by their Autonomous System Network, sorted by total offline relay count.
 
-- **Last Updated:** 2026-11-28 03:01:47 UTC
-- **Total Offline Nodes:** `723`
-- **Total Unique ASNs:** `335`
+- **Last Updated:** 2026-11-28 09:11:47 UTC
+- **Total Offline Nodes:** `760`
+- **Total Unique ASNs:** `353`
 
 ## 🌐 ASN Distribution Table
 
 | ASN Number | ASN Name | Country | Total Offline Relays |
 | :--- | :--- | :--- | :--- |
-| `AS36352` | HostPapa | `US` | **27** (1 exits + 26 non) |
+| `AS36352` | HostPapa | `US` | **25** (1 exits + 24 non) |
 | `AS52048` | SIA RixHost | `LV` | **23** (15 exits + 8 non) |
+| `AS131160` | Wire and Wireless Co.,Ltd. | `JP` | **22** (0 exits + 22 non) |
 | `AS51396` | Pfcloud UG (haftungsbeschrankt) | `DE` | **20** (0 exits + 20 non) |
-| `AS131160` | Wire and Wireless Co.,Ltd. | `JP` | **20** (0 exits + 20 non) |
-| `AS24940` | Hetzner Online GmbH | `DE` | **19** (0 exits + 19 non) |
+| `AS24940` | Hetzner Online GmbH | `DE` | **20** (0 exits + 20 non) |
 | `AS7018` | AT&T Enterprises, LLC | `US` | **18** (0 exits + 18 non) |
-| `AS3209` | Vodafone GmbH | `DE` | **14** (0 exits + 14 non) |
+| `AS197540` | netcup GmbH | `DE` | **16** (4 exits + 12 non) |
+| `AS3209` | Vodafone GmbH | `DE` | **15** (0 exits + 15 non) |
 | `AS12322` | Free SAS | `FR` | **14** (0 exits + 14 non) |
-| `AS197540` | netcup GmbH | `DE` | **13** (3 exits + 10 non) |
-| `AS16276` | OVH SAS | `FR` | **13** (3 exits + 10 non) |
+| `AS7922` | Comcast Cable Communications, LLC | `US` | **12** (0 exits + 12 non) |
 | `AS3320` | Deutsche Telekom AG | `DE` | **11** (0 exits + 11 non) |
-| `AS7922` | Comcast Cable Communications, LLC | `US` | **10** (0 exits + 10 non) |
+| `AS16276` | OVH SAS | `FR` | **11** (2 exits + 9 non) |
+| `AS8560` | IONOS SE | `DE` | **9** (0 exits + 9 non) |
 | `AS56655` | Gigahost AS | `NO` | **8** (8 exits + 0 non) |
 | `AS213438` | ColocaTel Inc. | `NL` | **8** (6 exits + 2 non) |
 | `AS8473` | Bahnhof AB | `DK` | **7** (0 exits + 7 non) |
 | `AS63949` | Akamai Technologies, Inc. | `US` | **7** (0 exits + 7 non) |
+| `AS56322` | ServerAstra Kft. | `HU` | **7** (3 exits + 4 non) |
 | `AS30893` | No ACK Group Holding AB | `SE` | **7** (7 exits + 0 non) |
-| `AS24940` | Hetzner Online GmbH | `FI` | **7** (0 exits + 7 non) |
-| `AS8560` | IONOS SE | `DE` | **6** (0 exits + 6 non) |
+| `AS11878` | tzulo, inc. | `US` | **7** (0 exits + 7 non) |
 | `AS7303` | Unknown ASN | `AR` | **6** (5 exits + 1 non) |
-| `AS56322` | ServerAstra Kft. | `HU` | **6** (2 exits + 4 non) |
+| `AS24940` | Hetzner Online GmbH | `FI` | **6** (0 exits + 6 non) |
 | `AS210558` | 1337 Services GmbH | `NL` | **6** (4 exits + 2 non) |
 | `AS51167` | Contabo GmbH | `DE` | **5** (0 exits + 5 non) |
 | `AS44925` | 1984 ehf | `IS` | **5** (3 exits + 2 non) |
+| `AS31898` | Oracle Corporation | `US` | **5** (0 exits + 5 non) |
 | `AS8881` | 1&1 Versatel GmbH | `DE` | **4** (0 exits + 4 non) |
 | `AS8560` | IONOS SE | `US` | **4** (2 exits + 2 non) |
-| `AS701` | Verizon Business | `US` | **4** (2 exits + 2 non) |
+| `AS63806` | Human-life Information Platforms Institute | `JP` | **4** (0 exits + 4 non) |
+| `AS62744` | Quintex Alliance Consulting | `US` | **4** (4 exits + 0 non) |
 | `AS53667` | FranTech Solutions | `US` | **4** (4 exits + 0 non) |
-| `AS43641` | SOLLUTIUM EU Sp z.o.o. | `NL` | **4** (1 exits + 3 non) |
 | `AS3462` | Chunghwa Telecom Co., Ltd. | `TW` | **4** (1 exits + 3 non) |
-| `AS3301` | Telia Company AB | `SE` | **4** (1 exits + 3 non) |
 | `AS3215` | Orange S.A. | `FR` | **4** (0 exits + 4 non) |
-| `AS31898` | Oracle Corporation | `US` | **4** (0 exits + 4 non) |
+| `AS214677` | Matteo Martelloni trading as DELUXHOST | `NL` | **4** (0 exits + 4 non) |
 | `AS214640` | Hostup AB | `SE` | **4** (0 exits + 4 non) |
 | `AS212477` | RoyaleHosting BV | `NL` | **4** (1 exits + 3 non) |
-| `AS11878` | tzulo, inc. | `US` | **4** (0 exits + 4 non) |
+| `AS211619` | MAXKO d.o.o. | `BG` | **4** (3 exits + 1 non) |
+| `AS16276` | OVH SAS | `PL` | **4** (1 exits + 3 non) |
+| `AS16276` | OVH SAS | `DE` | **4** (0 exits + 4 non) |
+| `AS16276` | OVH SAS | `CA` | **4** (0 exits + 4 non) |
+| `AS1257` | Tele2 Sverige AB | `SE` | **4** (0 exits + 4 non) |
 | `AS9145` | EWE TEL GmbH | `DE` | **3** (0 exits + 3 non) |
+| `AS8708` | RCS & RDS SA | `RO` | **3** (0 exits + 3 non) |
 | `AS8473` | Bahnhof AB | `SE` | **3** (0 exits + 3 non) |
 | `AS8151` | Unknown ASN | `MX` | **3** (2 exits + 1 non) |
+| `AS701` | Verizon Business | `US` | **3** (2 exits + 1 non) |
 | `AS6192` | University of California, Davis | `US` | **3** (0 exits + 3 non) |
 | `AS5089` | Virgin Media Limited | `GB` | **3** (0 exits + 3 non) |
-| `AS48753` | AVA HOST SRL | `MD` | **3** (0 exits + 3 non) |
-| `AS40663` | IncogNet LLC | `US` | **3** (2 exits + 1 non) |
-| `AS36849` | 1st Amendment Encrypted Openness LLC | `US` | **3** (0 exits + 3 non) |
 | `AS3303` | Swisscom (Schweiz) AG | `CH` | **3** (0 exits + 3 non) |
+| `AS31898` | Oracle Corporation | `DE` | **3** (0 exits + 3 non) |
 | `AS24961` | WIIT AG | `DE` | **3** (0 exits + 3 non) |
-| `AS214677` | Matteo Martelloni trading as DELUXHOST | `NL` | **3** (0 exits + 3 non) |
 | `AS213887` | WAIcore Ltd | `DE` | **3** (0 exits + 3 non) |
-| `AS211619` | MAXKO d.o.o. | `BG` | **3** (3 exits + 0 non) |
 | `AS207569` | I-SERVERS LTD | `CZ` | **3** (3 exits + 0 non) |
 | `AS20473` | The Constant Company, LLC | `US` | **3** (0 exits + 3 non) |
 | `AS16276` | OVH SAS | `US` | **3** (0 exits + 3 non) |
-| `AS16276` | OVH SAS | `PL` | **3** (1 exits + 2 non) |
-| `AS16276` | OVH SAS | `DE` | **3** (0 exits + 3 non) |
-| `AS16276` | OVH SAS | `CA` | **3** (0 exits + 3 non) |
 | `AS1136` | KPN B.V. | `NL` | **3** (0 exits + 3 non) |
 | `AS9136` | Wobcom GmbH | `DE` | **2** (0 exits + 2 non) |
 | `AS8764` | Telia Lietuva, AB | `LT` | **2** (0 exits + 2 non) |
-| `AS8708` | RCS & RDS SA | `RO` | **2** (0 exits + 2 non) |
-| `AS812` | Rogers Communications Canada Inc. | `CA` | **2** (0 exits + 2 non) |
 | `AS6724` | Strato GmbH | `DE` | **2** (0 exits + 2 non) |
 | `AS62005` | BlueVPS OU | `NL` | **2** (0 exits + 2 non) |
 | `AS6167` | Verizon Business | `US` | **2** (2 exits + 0 non) |
-| `AS61125` | SABOTAGE LLC | `NL` | **2** (2 exits + 0 non) |
-| `AS60781` | LeaseWeb Netherlands B.V. | `NL` | **2** (1 exits + 1 non) |
-| `AS60729` | Stiftung Erneuerbare Freiheit | `DE` | **2** (1 exits + 1 non) |
+| `AS6128` | Cablevision Systems Corp. | `US` | **2** (0 exits + 2 non) |
+| `AS60781` | LeaseWeb Netherlands B.V. | `NL` | **2** (0 exits + 2 non) |
 | `AS57269` | DIGI SPAIN TELECOM S.A | `ES` | **2** (0 exits + 2 non) |
 | `AS5617` | Orange Polska Spolka Akcyjna | `PL` | **2** (0 exits + 2 non) |
 | `AS56038` | Network Synergy Corporation Pty Ltd | `US` | **2** (0 exits + 2 non) |
-| `AS5483` | Magyar Telekom Plc. | `HU` | **2** (0 exits + 2 non) |
+| `AS5410` | Bouygues Telecom SA | `FR` | **2** (1 exits + 1 non) |
 | `AS5378` | Vodafone Limited | `GB` | **2** (1 exits + 1 non) |
 | `AS53667` | FranTech Solutions | `LU` | **2** (1 exits + 1 non) |
 | `AS51852` | Private Layer INC | `CH` | **2** (0 exits + 2 non) |
 | `AS51724` | Flynet Ltd | `RU` | **2** (0 exits + 2 non) |
+| `AS48753` | AVA HOST SRL | `MD` | **2** (0 exits + 2 non) |
 | `AS4766` | Korea Telecom | `KR` | **2** (1 exits + 1 non) |
 | `AS43513` | Sia Nano IT | `LV` | **2** (0 exits + 2 non) |
 | `AS42708` | Glesys AB | `SE` | **2** (0 exits + 2 non) |
-| `AS401736` | Project Daylily | `US` | **2** (0 exits + 2 non) |
+| `AS40663` | IncogNet LLC | `US` | **2** (1 exits + 1 non) |
 | `AS40029` | Novus Entertainment Inc. | `CA` | **2** (0 exits + 2 non) |
 | `AS398242` | Prentiss County Electric Power Association | `US` | **2** (0 exits + 2 non) |
 | `AS39618` | HostCram LLC | `US` | **2** (0 exits + 2 non) |
+| `AS36849` | 1st Amendment Encrypted Openness LLC | `US` | **2** (0 exits + 2 non) |
 | `AS35366` | ISPpro Internet KG | `DE` | **2** (0 exits + 2 non) |
 | `AS33915` | Vodafone Libertel B.V. | `NL` | **2** (0 exits + 2 non) |
 | `AS329325` | Maxko for Gaming Development | `ZA` | **2** (2 exits + 0 non) |
 | `AS31898` | Oracle Corporation | `NL` | **2** (0 exits + 2 non) |
 | `AS31898` | Oracle Corporation | `IN` | **2** (0 exits + 2 non) |
-| `AS31898` | Oracle Corporation | `DE` | **2** (0 exits + 2 non) |
 | `AS30722` | Fastweb SpA | `IT` | **2** (0 exits + 2 non) |
 | `AS29802` | HIVELOCITY, Inc. | `US` | **2** (0 exits + 2 non) |
 | `AS29695` | Lyse Tele AS | `NO` | **2** (0 exits + 2 non) |
@@ -105,27 +103,32 @@ Aggregated summary of currently offline Tor nodes (`running: false`) grouped by 
 | `AS26383` | Baxet Group Inc. | `SE` | **2** (0 exits + 2 non) |
 | `AS26383` | Baxet Group Inc. | `AT` | **2** (0 exits + 2 non) |
 | `AS2527` | Sony Network Communications Inc. | `JP` | **2** (0 exits + 2 non) |
+| `AS24282` | KAGOYA Japan Inc. | `JP` | **2** (0 exits + 2 non) |
+| `AS215960` | Hollander & Jacobsen UG (haftungsbeschraenkt) | `SE` | **2** (0 exits + 2 non) |
 | `AS215114` | Stevan Durand--L'Hours t/a SLBCLOUD | `FR` | **2** (2 exits + 0 non) |
 | `AS213881` | OUR Technology LLC | `AZ` | **2** (0 exits + 2 non) |
+| `AS213373` | IP Connect Inc | `NL` | **2** (1 exits + 1 non) |
 | `AS211507` | Julian Achter | `NL` | **2** (1 exits + 1 non) |
 | `AS210558` | 1337 Services GmbH | `US` | **2** (0 exits + 2 non) |
 | `AS210558` | 1337 Services GmbH | `PL` | **2** (2 exits + 0 non) |
 | `AS206238` | Freedom Internet BV | `NL` | **2** (0 exits + 2 non) |
+| `AS20473` | The Constant Company, LLC | `JP` | **2** (1 exits + 1 non) |
 | `AS20473` | The Constant Company, LLC | `DE` | **2** (0 exits + 2 non) |
 | `AS20115` | Charter Communications LLC | `US` | **2** (0 exits + 2 non) |
+| `AS200651` | FlokiNET ehf | `RO` | **2** (1 exits + 1 non) |
+| `AS198093` | Foreningen for digitala fri- och rattigheter | `SE` | **2** (2 exits + 0 non) |
 | `AS174` | Cogent Communications, LLC | `US` | **2** (0 exits + 2 non) |
 | `AS15943` | wilhelm.tel GmbH | `DE` | **2** (0 exits + 2 non) |
-| `AS14061` | DigitalOcean, LLC | `US` | **2** (0 exits + 2 non) |
+| `AS152565` | JOY SERVICES | `IN` | **2** (0 exits + 2 non) |
 | `AS138754` | Kerala Vision Broad Band Private Limited | `IN` | **2** (0 exits + 2 non) |
-| `AS13030` | Init7 (Switzerland) Ltd. | `CH` | **2** (0 exits + 2 non) |
 | `AS12735` | TurkNet Iletisim Hizmetleri A.S. | `TR` | **2** (0 exits + 2 non) |
-| `AS1257` | Tele2 Sverige AB | `SE` | **2** (0 exits + 2 non) |
 | `AS12479` | Orange Espagne SA | `ES` | **2** (0 exits + 2 non) |
 | `AS12312` | ecotel communication ag | `DE` | **2** (0 exits + 2 non) |
 | `AS9790` | Two Degrees Mobile Limited | `NZ` | **1** (0 exits + 1 non) |
 | `AS9378` | JCOM Co., Ltd. | `JP` | **1** (0 exits + 1 non) |
 | `AS9031` | EDPNET Belgium BV | `BE` | **1** (0 exits + 1 non) |
 | `AS8866` | Vivacom Bulgaria EAD | `BG` | **1** (0 exits + 1 non) |
+| `AS8860` | Delta HighTech Ltd. | `BG` | **1** (0 exits + 1 non) |
 | `AS8767` | M-net Telekommunikations GmbH | `DE` | **1** (0 exits + 1 non) |
 | `AS8560` | IONOS SE | `GB` | **1** (0 exits + 1 non) |
 | `AS8560` | IONOS SE | `FR` | **1** (0 exits + 1 non) |
@@ -135,12 +138,12 @@ Aggregated summary of currently offline Tor nodes (`running: false`) grouped by 
 | `AS8495` | INTERNET AG Global Network | `DE` | **1** (0 exits + 1 non) |
 | `AS8400` | TELEKOM SRBIJA a.d. | `RS` | **1** (0 exits + 1 non) |
 | `AS8254` | GREEN FLOID LLC | `GR` | **1** (0 exits + 1 non) |
+| `AS812` | Rogers Communications Canada Inc. | `CA` | **1** (0 exits + 1 non) |
 | `AS8075` | Microsoft Corporation | `KR` | **1** (0 exits + 1 non) |
 | `AS8075` | Microsoft Corporation | `JP` | **1** (0 exits + 1 non) |
 | `AS8075` | Microsoft Corporation | `HK` | **1** (0 exits + 1 non) |
 | `AS8048` | Unknown ASN | `VE` | **1** (1 exits + 0 non) |
-| `AS7545` | TPG Internet Pty Ltd | `AU` | **1** (0 exits + 1 non) |
-| `AS7506` | GMO Internet INC. | `JP` | **1** (0 exits + 1 non) |
+| `AS7684` | SAKURA internet // HOKKAIDO BACKBONE | `JP` | **1** (0 exits + 1 non) |
 | `AS7489` | HostUS | `JP` | **1** (0 exits + 1 non) |
 | `AS7418` | Unknown ASN | `CL` | **1** (0 exits + 1 non) |
 | `AS6849` | JSC "Ukrtelecom" | `UA` | **1** (1 exits + 0 non) |
@@ -152,14 +155,16 @@ Aggregated summary of currently offline Tor nodes (`running: false`) grouped by 
 | `AS63949` | Akamai Technologies, Inc. | `JP` | **1** (1 exits + 0 non) |
 | `AS63949` | Akamai Technologies, Inc. | `GB` | **1** (0 exits + 1 non) |
 | `AS63949` | Akamai Technologies, Inc. | `DE` | **1** (0 exits + 1 non) |
+| `AS63473` | HostHatch, LLC | `AU` | **1** (0 exits + 1 non) |
 | `AS6327` | Shaw Communications | `CA` | **1** (0 exits + 1 non) |
-| `AS62744` | Quintex Alliance Consulting | `US` | **1** (1 exits + 0 non) |
 | `AS62564` | LINVEO, LLC | `US` | **1** (0 exits + 1 non) |
 | `AS62365` | SachsenGigaBit GmbH | `DE` | **1** (0 exits + 1 non) |
+| `AS62240` | Clouvider Limited | `GB` | **1** (0 exits + 1 non) |
 | `AS62000` | SERVERD SAS | `FR` | **1** (0 exits + 1 non) |
+| `AS6181` | Cincinnati Bell Telephone Company LLC | `US` | **1** (0 exits + 1 non) |
 | `AS61487` | Unknown ASN | `AR` | **1** (1 exits + 0 non) |
-| `AS6128` | Cablevision Systems Corp. | `US` | **1** (0 exits + 1 non) |
-| `AS61098` | Akenes SA | `CH` | **1** (0 exits + 1 non) |
+| `AS61125` | SABOTAGE LLC | `NL` | **1** (1 exits + 0 non) |
+| `AS60729` | Stiftung Erneuerbare Freiheit | `DE` | **1** (1 exits + 0 non) |
 | `AS60404` | The Infrastructure Group B.V. | `NL` | **1** (0 exits + 1 non) |
 | `AS59741` | Marco Sandro Naef | `CH` | **1** (0 exits + 1 non) |
 | `AS59444` | Andrzej Szreter AMSNET | `PL` | **1** (1 exits + 0 non) |
@@ -174,22 +179,22 @@ Aggregated summary of currently offline Tor nodes (`running: false`) grouped by 
 | `AS56038` | Network Synergy Corporation Pty Ltd | `ID` | **1** (0 exits + 1 non) |
 | `AS56038` | Network Synergy Corporation Pty Ltd | `AU` | **1** (0 exits + 1 non) |
 | `AS55688` | PT. Beon Intermedia | `ID` | **1** (1 exits + 0 non) |
-| `AS5410` | Bouygues Telecom SA | `FR` | **1** (1 exits + 0 non) |
+| `AS5483` | Magyar Telekom Plc. | `HU` | **1** (0 exits + 1 non) |
 | `AS53914` | Genesis Hosting Solutions, LLC | `US` | **1** (0 exits + 1 non) |
 | `AS5384` | EMIRATES TELECOMMUNICATIONS GROUP COMPANY (ETISALAT GROUP) PJSC | `AE` | **1** (0 exits + 1 non) |
 | `AS53808` | MoeDove | `HK` | **1** (0 exits + 1 non) |
 | `AS52653` | Marlon L. Larger & Cia Ltda | `BR` | **1** (0 exits + 1 non) |
-| `AS52423` | Data Miners S.A. ( Racknation.cr ) | `CR` | **1** (0 exits + 1 non) |
 | `AS52053` | REDHEBERG Association declaree | `FR` | **1** (0 exits + 1 non) |
+| `AS51659` | LLC Baxet | `RU` | **1** (0 exits + 1 non) |
 | `AS51264` | Kutumova Olena | `UA` | **1** (0 exits + 1 non) |
 | `AS50821` | Bredband2 Stockholms Stadsnaet AB | `SE` | **1** (0 exits + 1 non) |
+| `AS49889` | Crystal Telecom Ltd | `UA` | **1** (0 exits + 1 non) |
 | `AS49683` | MASSIVEGRID LTD | `GB` | **1** (0 exits + 1 non) |
 | `AS48732` | Martial Duboc | `FR` | **1** (0 exits + 1 non) |
 | `AS48314` | Michael Sebastian Schinzel trading as IP-Projects GmbH & Co. KG | `DE` | **1** (0 exits + 1 non) |
 | `AS48282` | Hosting technology LTD | `RU` | **1** (0 exits + 1 non) |
 | `AS4804` | SingTel Optus Pty Ltd | `AU` | **1** (0 exits + 1 non) |
 | `AS47890` | UNMANAGED LTD | `RO` | **1** (1 exits + 0 non) |
-| `AS4764` | Aussie Fibre Pty Ltd | `AU` | **1** (1 exits + 0 non) |
 | `AS47583` | Hostinger Operations UAB | `US` | **1** (1 exits + 0 non) |
 | `AS47583` | Hostinger Operations UAB | `BR` | **1** (0 exits + 1 non) |
 | `AS47583` | Hostinger International Limited | `MY` | **1** (0 exits + 1 non) |
@@ -198,15 +203,22 @@ Aggregated summary of currently offline Tor nodes (`running: false`) grouped by 
 | `AS46979` | Madison County Telephone Company | `US` | **1** (0 exits + 1 non) |
 | `AS46690` | Verizon Business | `US` | **1** (0 exits + 1 non) |
 | `AS46690` | Southern New England Telephone Company and SNET America, Inc. | `US` | **1** (0 exits + 1 non) |
+| `AS46632` | Southwest Arkansas Telephone Cooperative | `US` | **1** (0 exits + 1 non) |
 | `AS46375` | Sonic Telecom LLC | `US` | **1** (0 exits + 1 non) |
 | `AS45382` | Hostcenter | `KR` | **1** (1 exits + 0 non) |
 | `AS45102` | Alibaba (US) Technology Co., Ltd. | `US` | **1** (0 exits + 1 non) |
 | `AS45102` | Alibaba (US) Technology Co., Ltd. | `SG` | **1** (0 exits + 1 non) |
+| `AS43641` | SOLLUTIUM EU Sp z.o.o. | `NL` | **1** (1 exits + 0 non) |
+| `AS43139` | Maximum-Net LLC | `UA` | **1** (0 exits + 1 non) |
+| `AS43067` | PE "Pretcher" | `UA` | **1** (0 exits + 1 non) |
 | `AS42695` | Cleura AB | `SE` | **1** (0 exits + 1 non) |
 | `AS42695` | Cleura AB | `DE` | **1** (0 exits + 1 non) |
 | `AS42237` | Anastasiia Hein | `SE` | **1** (0 exits + 1 non) |
+| `AS41608` | NextGenWebs, S.L. | `NL` | **1** (0 exits + 1 non) |
+| `AS41075` | ATW Internet Kft. | `HU` | **1** (0 exits + 1 non) |
 | `AS40676` | Psychz Networks | `CA` | **1** (0 exits + 1 non) |
 | `AS401833` | AXNET LLC | `US` | **1** (0 exits + 1 non) |
+| `AS401479` | Database Mart LLC | `US` | **1** (1 exits + 0 non) |
 | `AS400897` | PETROSKY CLOUD LLC | `FR` | **1** (0 exits + 1 non) |
 | `AS400475` | Nuclearfallout Enterprises, Inc. | `US` | **1** (0 exits + 1 non) |
 | `AS399646` | Snaju Development | `US` | **1** (0 exits + 1 non) |
@@ -218,41 +230,39 @@ Aggregated summary of currently offline Tor nodes (`running: false`) grouped by 
 | `AS39287` | Materialism s.r.l. | `SE` | **1** (0 exits + 1 non) |
 | `AS38731` | Vietel - CHT Compamy Ltd | `VN` | **1** (0 exits + 1 non) |
 | `AS37611` | AFRIHOST SP (PTY) LTD | `ZA` | **1** (0 exits + 1 non) |
-| `AS35592` | Coolhousing s.r.o. | `CZ` | **1** (0 exits + 1 non) |
 | `AS34224` | Neterra Ltd. | `BG` | **1** (0 exits + 1 non) |
+| `AS33885` | Telenor Sverige AB | `SE` | **1** (0 exits + 1 non) |
+| `AS33588` | Charter Communications LLC | `US` | **1** (0 exits + 1 non) |
+| `AS3352` | TELEFONICA DE ESPANA S.A.U. | `ES` | **1** (0 exits + 1 non) |
 | `AS33387` | Nocix, LLC | `US` | **1** (0 exits + 1 non) |
 | `AS33247` | COASTAL TELCO SERVICES, INC. | `US` | **1** (0 exits + 1 non) |
+| `AS3301` | Telia Company AB | `SE` | **1** (0 exits + 1 non) |
 | `AS3292` | TDC Holding A/S | `DK` | **1** (0 exits + 1 non) |
 | `AS329184` | Host Africa (Pty) Ltd | `ZA` | **1** (0 exits + 1 non) |
-| `AS328364` | Host Africa (Pty) Ltd | `ZA` | **1** (1 exits + 0 non) |
 | `AS31898` | Oracle Corporation | `KR` | **1** (0 exits + 1 non) |
-| `AS31898` | Oracle Corporation | `BR` | **1** (0 exits + 1 non) |
 | `AS31615` | Odido Netherlands B.V. | `NL` | **1** (0 exits + 1 non) |
 | `AS29974` | Wightman Telecom | `CA` | **1** (0 exits + 1 non) |
+| `AS29066` | velia.net Internetdienste GmbH | `FR` | **1** (0 exits + 1 non) |
 | `AS2860` | NOS COMUNICACOES, S.A. | `PT` | **1** (0 exits + 1 non) |
 | `AS28573` | Claro NXT Telecomunicacoes Ltda | `BR` | **1** (0 exits + 1 non) |
 | `AS27956` | Unknown ASN | `PA` | **1** (0 exits + 1 non) |
 | `AS27747` | Unknown ASN | `AR` | **1** (0 exits + 1 non) |
 | `AS27651` | Unknown ASN | `CL` | **1** (0 exits + 1 non) |
 | `AS27284` | Fourplex Telecom LLC | `US` | **1** (1 exits + 0 non) |
-| `AS270013` | J AND J SPA (INFOFRACTAL) | `CL` | **1** (1 exits + 0 non) |
 | `AS26832` | Rica Web Services | `CA` | **1** (0 exits + 1 non) |
 | `AS264715` | Unknown ASN | `AR` | **1** (1 exits + 0 non) |
 | `AS263786` | Unknown ASN | `AR` | **1** (0 exits + 1 non) |
 | `AS26042` | FiberState, LLC | `US` | **1** (0 exits + 1 non) |
 | `AS25693` | Virtual Machine Solutions LLC | `US` | **1** (0 exits + 1 non) |
 | `AS25653` | FortressITX | `US` | **1** (0 exits + 1 non) |
-| `AS24971` | MasterDC s.r.o. | `CZ` | **1** (0 exits + 1 non) |
 | `AS24800` | BornFiber Service Provider ApS | `DK` | **1** (0 exits + 1 non) |
 | `AS23470` | ReliableSite.Net LLC | `US` | **1** (0 exits + 1 non) |
 | `AS22773` | Cox Communications, LLC | `US` | **1** (0 exits + 1 non) |
-| `AS22612` | Namecheap, Inc. | `US` | **1** (0 exits + 1 non) |
 | `AS217987` | XYBER WAVE TRADE & MARKETING - FZCO | `CH` | **1** (0 exits + 1 non) |
-| `AS215960` | Hollander & Jacobsen UG (haftungsbeschraenkt) | `SE` | **1** (0 exits + 1 non) |
-| `AS215730` | H2NEXUS CLOUD SERVICES - FZCO | `DE` | **1** (0 exits + 1 non) |
 | `AS215439` | PLAY2GO INTERNATIONAL LIMITED | `SE` | **1** (0 exits + 1 non) |
 | `AS215311` | Regxa Company for Information Technology Ltd | `US` | **1** (1 exits + 0 non) |
 | `AS215311` | Regxa Company for Information Technology Ltd | `GB` | **1** (0 exits + 1 non) |
+| `AS215248` | Bastiaan Mathijs Brink | `US` | **1** (0 exits + 1 non) |
 | `AS215125` | Church of Cyberology | `NL` | **1** (0 exits + 1 non) |
 | `AS215124` | FLEXICORE SASU | `FR` | **1** (0 exits + 1 non) |
 | `AS215120` | Evolus IT Solutions GmbH | `AT` | **1** (0 exits + 1 non) |
@@ -260,11 +270,11 @@ Aggregated summary of currently offline Tor nodes (`running: false`) grouped by 
 | `AS214961` | Stellar Group SAS | `FR` | **1** (0 exits + 1 non) |
 | `AS214639` | Raul Ghita trading as 'Ghita Telekom' | `US` | **1** (0 exits + 1 non) |
 | `AS214639` | Raul Ghita trading as 'Ghita Telekom' | `DE` | **1** (0 exits + 1 non) |
+| `AS214366` | Moustafa Mohamed Mohamed Ahmed Elghoubashi | `UA` | **1** (0 exits + 1 non) |
 | `AS213791` | XeniaGroup SRL | `IT` | **1** (0 exits + 1 non) |
+| `AS213790` | Limited Network LTD | `US` | **1** (1 exits + 0 non) |
 | `AS213438` | ColocaTel Inc. | `US` | **1** (0 exits + 1 non) |
-| `AS213373` | IP Connect Inc | `NL` | **1** (1 exits + 0 non) |
 | `AS212655` | YouFibre Limited | `GB` | **1** (0 exits + 1 non) |
-| `AS212336` | ByteVirt LLC | `JP` | **1** (1 exits + 0 non) |
 | `AS212238` | Datacamp Limited | `CH` | **1** (0 exits + 1 non) |
 | `AS211619` | MAXKO d.o.o. | `NL` | **1** (1 exits + 0 non) |
 | `AS211619` | MAXKO d.o.o. | `HU` | **1** (1 exits + 0 non) |
@@ -275,58 +285,65 @@ Aggregated summary of currently offline Tor nodes (`running: false`) grouped by 
 | `AS210699` | Infrawire Networks SAS | `FR` | **1** (0 exits + 1 non) |
 | `AS210644` | AEZA GROUP LLC | `RU` | **1** (1 exits + 0 non) |
 | `AS209847` | WorkTitans B.V. | `NZ` | **1** (1 exits + 0 non) |
-| `AS20857` | Signet B.V. | `NL` | **1** (0 exits + 1 non) |
+| `AS208674` | Association TekitUp | `FR` | **1** (0 exits + 1 non) |
 | `AS208226` | OUIHEBERG SARL | `US` | **1** (0 exits + 1 non) |
 | `AS208172` | Proton AG | `AR` | **1** (1 exits + 0 non) |
 | `AS207841` | Inferno Communications Ltd | `GB` | **1** (1 exits + 0 non) |
 | `AS207728` | EUROHOSTER Ltd. | `US` | **1** (0 exits + 1 non) |
+| `AS207656` | Epinatura LLC | `UA` | **1** (1 exits + 0 non) |
 | `AS207459` | TEKNOSOS BILISIM HIZMETLERI VE TIC. LTD. STI. | `TR` | **1** (0 exits + 1 non) |
 | `AS206804` | Realcloud OU | `EE` | **1** (1 exits + 0 non) |
 | `AS205775` | NEON CORE NETWORK LLC | `BZ` | **1** (1 exits + 0 non) |
 | `AS205759` | Ghosty Networks LLC | `UA` | **1** (0 exits + 1 non) |
+| `AS205100` | F3 Netze e.V. | `DE` | **1** (1 exits + 0 non) |
 | `AS205090` | FIRST SERVER LIMITED | `RU` | **1** (0 exits + 1 non) |
 | `AS204957` | ROUTE 95 LLC | `SG` | **1** (0 exits + 1 non) |
+| `AS204957` | ROUTE 95 LLC | `RO` | **1** (0 exits + 1 non) |
 | `AS204876` | BGZ BILISIM TEKNOLOJILERI LIMITED SIRKETI | `TR` | **1** (0 exits + 1 non) |
 | `AS20473` | The Constant Company, LLC | `SG` | **1** (0 exits + 1 non) |
 | `AS20473` | The Constant Company, LLC | `NL` | **1** (0 exits + 1 non) |
-| `AS20473` | The Constant Company, LLC | `JP` | **1** (1 exits + 0 non) |
 | `AS20473` | The Constant Company, LLC | `FR` | **1** (0 exits + 1 non) |
 | `AS20473` | The Constant Company, LLC | `BR` | **1** (0 exits + 1 non) |
 | `AS203446` | SMARTNET LIMITED | `DE` | **1** (0 exits + 1 non) |
 | `AS203380` | DA International Group Ltd. | `BG` | **1** (0 exits + 1 non) |
 | `AS203003` | Magna Capax Finland Oy | `FI` | **1** (0 exits + 1 non) |
 | `AS202870` | Dimensione S.r.l. | `IT` | **1** (0 exits + 1 non) |
-| `AS202422` | G-Core Labs S.A. | `HU` | **1** (0 exits + 1 non) |
-| `AS202422` | G-Core Labs S.A. | `AM` | **1** (0 exits + 1 non) |
 | `AS202306` | HOSTGLOBAL.PLUS LTD | `GB` | **1** (0 exits + 1 non) |
 | `AS202053` | UpCloud Ltd | `SG` | **1** (0 exits + 1 non) |
 | `AS201988` | VPSPay Networks LTD | `FI` | **1** (1 exits + 0 non) |
-| `AS201670` | S.C. INFOTECH-GRUP S.R.L. | `MD` | **1** (0 exits + 1 non) |
+| `AS201838` | Community Fibre Limited | `GB` | **1** (0 exits + 1 non) |
+| `AS201670` | S.C. INFOTECH-GRUP S.R.L. | `IN` | **1** (0 exits + 1 non) |
 | `AS200950` | Calibour Limited | `DE` | **1** (0 exits + 1 non) |
 | `AS200651` | FlokiNET ehf | `FI` | **1** (1 exits + 0 non) |
 | `AS200590` | NLS Kazakhstan LLC | `KZ` | **1** (1 exits + 0 non) |
 | `AS200490` | Felix Annen | `DE` | **1** (0 exits + 1 non) |
+| `AS200303` | LUMASERV GmbH | `DE` | **1** (0 exits + 1 non) |
 | `AS200062` | Optitrust GmbH | `DE` | **1** (0 exits + 1 non) |
 | `AS199654` | Oxide Group Limited | `NL` | **1** (0 exits + 1 non) |
 | `AS198590` | Ben Klinke | `EU` | **1** (1 exits + 0 non) |
-| `AS197422` | Tetaneutral.net Association declaree | `FR` | **1** (1 exits + 0 non) |
 | `AS197071` | active 1 GmbH | `DE` | **1** (0 exits + 1 non) |
 | `AS19255` | YOUR.ORG, INC. | `US` | **1** (0 exits + 1 non) |
 | `AS18526` | DDPS Networks, LLC | `JP` | **1** (0 exits + 1 non) |
+| `AS1759` | Telia Finland Oyj | `FI` | **1** (0 exits + 1 non) |
 | `AS17551` | Anycast Holdings Pty Ltd | `AU` | **1** (0 exits + 1 non) |
 | `AS16591` | Google Fiber Inc. | `US` | **1** (0 exits + 1 non) |
 | `AS16509` | Amazon.com, Inc. | `US` | **1** (0 exits + 1 non) |
 | `AS16276` | OVH SAS | `IT` | **1** (0 exits + 1 non) |
 | `AS16276` | OVH SAS | `GB` | **1** (0 exits + 1 non) |
 | `AS16276` | OVH SAS | `AU` | **1** (0 exits + 1 non) |
+| `AS16223` | MAXNET TELECOM, LTD | `UA` | **1** (0 exits + 1 non) |
 | `AS16019` | Vodafone Czech Republic a.s. | `CZ` | **1** (1 exits + 0 non) |
+| `AS15600` | Quickline AG | `CH` | **1** (0 exits + 1 non) |
+| `AS15435` | DELTA Fiber Nederland B.V. | `NL` | **1** (0 exits + 1 non) |
 | `AS154317` | VyomCloud | `IN` | **1** (0 exits + 1 non) |
-| `AS152565` | JOY SERVICES | `IN` | **1** (0 exits + 1 non) |
 | `AS150436` | Byteplus Pte. Ltd. | `SG` | **1** (0 exits + 1 non) |
+| `AS149440` | Evoxt Sdn. Bhd. | `US` | **1** (1 exits + 0 non) |
 | `AS14522` | Unknown ASN | `EC` | **1** (1 exits + 0 non) |
 | `AS142036` | Hosteons Pte. Ltd. | `FR` | **1** (0 exits + 1 non) |
+| `AS14061` | DigitalOcean, LLC | `US` | **1** (0 exits + 1 non) |
 | `AS14061` | DigitalOcean, LLC | `IN` | **1** (1 exits + 0 non) |
 | `AS14061` | DigitalOcean, LLC | `GB` | **1** (0 exits + 1 non) |
+| `AS14061` | DigitalOcean, LLC | `DE` | **1** (0 exits + 1 non) |
 | `AS14061` | DigitalOcean, LLC | `AU` | **1** (0 exits + 1 non) |
 | `AS138915` | Kaopu Cloud HK Limited | `AE` | **1** (0 exits + 1 non) |
 | `AS137967` | Digicon Telecommunication Ltd | `BD` | **1** (1 exits + 0 non) |
@@ -336,12 +353,13 @@ Aggregated summary of currently offline Tor nodes (`running: false`) grouped by 
 | `AS136052` | PT Cloud Hosting Indonesia | `ID` | **1** (0 exits + 1 non) |
 | `AS135377` | UCLOUD INFORMATION TECHNOLOGY (HK) LIMITED | `US` | **1** (0 exits + 1 non) |
 | `AS132203` | Shenzhen Tencent Computer Systems Company Limited | `SG` | **1** (0 exits + 1 non) |
+| `AS13030` | Init7 (Switzerland) Ltd. | `CH` | **1** (0 exits + 1 non) |
 | `AS12912` | T-Mobile Polska S.A. | `PL` | **1** (0 exits + 1 non) |
 | `AS12876` | Scaleway SAS | `FR` | **1** (0 exits + 1 non) |
 | `AS12874` | Fastweb SpA | `IT` | **1** (0 exits + 1 non) |
 | `AS1267` | WIND TRE S.P.A. | `IT` | **1** (0 exits + 1 non) |
+| `AS12430` | VODAFONE ESPANA S.A.U. | `ES` | **1** (0 exits + 1 non) |
 | `AS12302` | Vodafone Romania S.A. | `RO` | **1** (0 exits + 1 non) |
 | `AS11117` | Nuyek, LLC | `US` | **1** (0 exits + 1 non) |
 | `AS11062` | Metro Communications Company | `US` | **1** (0 exits + 1 non) |
-| `AS1103` | SURF B.V. | `NL` | **1** (0 exits + 1 non) |
 | `AS10929` | eStruxture Data Centers Inc. | `CA` | **1** (0 exits + 1 non) |
